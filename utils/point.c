@@ -1,39 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   simple.c                                           :+:      :+:    :+:   */
+/*   point.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/01 19:11:26 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/03/01 19:15:23 by ecarvalh         ###   ########.fr       */
+/*   Created: 2024/03/02 13:34:12 by ecarvalh          #+#    #+#             */
+/*   Updated: 2024/03/02 14:02:00 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	simple_rot(int *px, int *py, int angle);
-void	simple_trl(int *px, int *py, t_vec2 pos);
+void	point_rotate(int *px, int *py, int angle);
+void	point_translate(int *px, int *py, int x, int y);
+void	point_scale(int *px, int *py, double scale);
 
-void	simple_rot(int *px, int *py, int angle)
+void	point_rotate(int *px, int *py, int angle)
 {
 	int		x;
 	int		y;
-	int		cos_appr;
-	int		sin_appr;
 	double	angle_rad;
 
 	x = *px;
 	y = *py;
 	angle_rad = (angle % 360) * M_PI / 180.0;
-	cos_appr = (int)(cos(angle_rad) * 1024);
-	sin_appr = (int)(sin(angle_rad) * 1024);
-	*px = (x * cos_appr - y * sin_appr) / 1024;
-	*py = (x * sin_appr + y * cos_appr) / 1024;
+	*px = (int)(x * cos(angle_rad) - y * sin(angle_rad)) + 0.5;
+	*py = (int)(x * sin(angle_rad) + y * cos(angle_rad)) + 0.5;
 }
 
-void	simple_trl(int *px, int *py, t_vec2 pos)
+void	point_translate(int *px, int *py, int x, int y)
 {
-	*px += pos.x;
-	*py += pos.y;
+	*px += x;
+	*py += y;
+}
+
+void	point_scale(int *px, int *py, double scale)
+{
+	*px = (int)(*px * scale + 0.5);
+	*py = (int)(*py * scale + 0.5);
 }

@@ -6,44 +6,19 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 17:27:46 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/03/01 19:31:11 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/03/02 14:45:09 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	draw_rect_bord(t_fdf *fdf, t_vec4 rect, int color);
-void	draw_shape(t_fdf *fdf, t_vec2 **shape, int color);
 void	draw_line(t_fdf *fdf, t_vec2 start, t_vec2 end, int color);
 
-void	draw_rect_bord(t_fdf *fdf, t_vec4 rect, int color)
-{
-	int		x;
-	int		y;
-	int		ex;
-	int		ey;
-	t_vec2	**points;
-
-	x = rect.x;
-	y = rect.y;
-	ex = x + rect.z;
-	ey = y + rect.w;
-	points = (t_vec2 *[]){
-		&(t_vec2){x, y}, &(t_vec2){ex, y}, &(t_vec2){ex, ey}, &(t_vec2){x, ey},
-		&(t_vec2){x, y}, NULL};
-	draw_shape(fdf, points, color);
-}
-
-void	draw_shape(t_fdf *fdf, t_vec2 **shape, int color)
-{
-	int	i;
-
-	i = 0;
-	while (shape[++i])
-		draw_line(fdf, shape[i - 1][0], shape[i][0], color);
-}
-
 /* [Thnks Wikipedia!](https://en.wikipedia.org/wiki/Bresenham's_line_algorithm)
+ *
+ * This is one of the most important functions of this project. With the power
+ * of drawing lines, I can draw triangles. You can make any shape with only
+ * triangles.
  */
 void	draw_line(t_fdf *fdf, t_vec2 start, t_vec2 end, int color)
 {

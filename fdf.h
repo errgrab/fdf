@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 17:21:06 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/03/01 19:18:05 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/03/02 13:58:28 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,10 @@ struct	s_fdf
 
 /* events.c */
 int		event_quit(t_fdf *fdf);
+int		event_keypress(int key, t_fdf *fdf);
 int		event_keyrelease(int key, t_fdf *fdf);
 
 /* draw.c */
-void	draw_rect_bord(t_fdf *fdf, t_vec4 rect, int color);
-void	draw_shape(t_fdf *fdf, t_vec2 **shape, int color);
 void	draw_line(t_fdf *fdf, t_vec2 start, t_vec2 end, int color);
 
 /* fdf.c */
@@ -74,8 +73,9 @@ void	fdf_init(t_fdf *fdf);
 /* undr.c */
 size_t	_tern(int cond, size_t t_val, size_t f_val);
 
-/* simple.c */
-void	simple_rot(int *px, int *py, int angle);
-void	simple_trl(int *px, int *py, t_vec2 pos);
+/* point.c */
+void	point_rotate(int *px, int *py, int angle);
+void	point_translate(int *px, int *py, int x, int y);
+void	point_scale(int *px, int *py, double scale);
 
 #endif /* FDF_H */
