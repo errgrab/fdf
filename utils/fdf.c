@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 17:29:39 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/03/02 18:40:51 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/03/02 19:56:55 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ void	apply_factor(t_vec3 **points, float factor)
 	{
 		if (points[i]->z == 0)
 			continue ;
-		points[i]->x = (int)((points[i]->x / (points[i]->z * factor)) + 0.5);
-		points[i]->y = (int)((points[i]->y / (points[i]->z * factor)) + 0.5);
+		points[i]->x = (int)(points[i]->x * (points[i]->z * factor));
+		points[i]->y = (int)(points[i]->y * (points[i]->z * factor));
 	}
 }
 
@@ -110,7 +110,7 @@ int	fdf_draw(t_fdf *fdf)
 	rotx = (rotx + 2) % 360;
 	apply_rot_z(points, rotz);
 	rotz = (rotz + 1) % 360;
-	apply_translate(points, (t_vec3){0, 0, 200});
+	apply_translate(points, (t_vec3){0, 0, 150});
 	apply_factor(points, .01);
 	apply_translate(points, (t_vec3){150, 150, 0});
 	usleep(30000);
