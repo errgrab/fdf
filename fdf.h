@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 17:21:06 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/03/02 13:58:28 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/03/03 00:53:10 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ int		event_keypress(int key, t_fdf *fdf);
 int		event_keyrelease(int key, t_fdf *fdf);
 
 /* draw.c */
-void	draw_line(t_fdf *fdf, t_vec2 start, t_vec2 end, int color);
+void	draw_line(t_fdf *fdf, int line[4], int color);
+void	draw_shape(t_fdf *fdf, t_vec3 **points, int **edges);
 
 /* fdf.c */
 int		fdf_draw(t_fdf *fdf);
@@ -77,5 +78,12 @@ size_t	_tern(int cond, size_t t_val, size_t f_val);
 void	point_rotate(int *px, int *py, int angle);
 void	point_translate(int *px, int *py, int x, int y);
 void	point_scale(int *px, int *py, double scale);
+
+/* apply.c */
+void	apply_rot_x(t_vec3 **points, int angle);
+void	apply_rot_y(t_vec3 **points, int angle);
+void	apply_rot_z(t_vec3 **points, int angle);
+void	apply_translate(t_vec3 **points, t_vec3 trl);
+void	apply_scale(t_vec3 **points, float scale);
 
 #endif /* FDF_H */

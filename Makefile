@@ -6,7 +6,7 @@
 #    By: ecarvalh <ecarvalh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/26 11:33:41 by ecarvalh          #+#    #+#              #
-#    Updated: 2024/03/02 10:32:40 by ecarvalh         ###   ########.fr        #
+#    Updated: 2024/03/02 20:42:35 by ecarvalh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,10 @@ LDFLAGS	= -L$(LIB) # -L$(MLX)
 LDLIBS	= -lft -l$(MLX) -lX11 -lXext -lm
 NAME	= fdf
 
-all: $(NAME)
+all: $(NAME) test
+
+test: $(NAME)
+	./$(NAME)
 
 $(LIB):
 	@make -sC $@
