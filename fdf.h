@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 17:21:06 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/03/03 00:53:10 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/03/03 01:24:20 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,38 +22,22 @@
 # include <X11/keysym.h>
 
 /* types */
-typedef struct s_vec2	t_vec2;
-typedef struct s_vec3	t_vec3;
-typedef struct s_vec4	t_vec4;
 typedef struct s_fdf	t_fdf;
 
 /* definitions */
-struct	s_vec2
+enum
 {
-	int	x;
-	int	y;
-};
-
-struct	s_vec3
-{
-	int	x;
-	int	y;
-	int	z;
-};
-
-struct	s_vec4
-{
-	int	x;
-	int	y;
-	int	z;
-	int	w;
+	X,
+	Y,
+	Z,
+	W
 };
 
 struct	s_fdf
 {
 	void	*mlx;
 	void	*win;
-	t_vec2	win_size;
+	int		win_size[2];
 };
 
 /* functions */
@@ -64,8 +48,8 @@ int		event_keypress(int key, t_fdf *fdf);
 int		event_keyrelease(int key, t_fdf *fdf);
 
 /* draw.c */
-void	draw_line(t_fdf *fdf, int line[4], int color);
-void	draw_shape(t_fdf *fdf, t_vec3 **points, int **edges);
+void	draw_line(t_fdf *fdf, int line[2][2], int color);
+void	draw_shape(t_fdf *fdf, int **points, int **edges);
 
 /* fdf.c */
 int		fdf_draw(t_fdf *fdf);
@@ -80,10 +64,8 @@ void	point_translate(int *px, int *py, int x, int y);
 void	point_scale(int *px, int *py, double scale);
 
 /* apply.c */
-void	apply_rot_x(t_vec3 **points, int angle);
-void	apply_rot_y(t_vec3 **points, int angle);
-void	apply_rot_z(t_vec3 **points, int angle);
-void	apply_translate(t_vec3 **points, t_vec3 trl);
-void	apply_scale(t_vec3 **points, float scale);
+void	apply_rot(int **points, int *angle);
+void	apply_translate(int **points, int *pos);
+void	apply_scale(int **points, float scale);
 
 #endif /* FDF_H */
