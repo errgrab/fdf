@@ -6,15 +6,13 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 13:34:12 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/03/02 21:31:29 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/03/04 11:44:22 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
 void	point_rotate(int *px, int *py, int angle);
-void	point_translate(int *px, int *py, int x, int y);
-void	point_scale(int *px, int *py, double scale);
 
 void	point_rotate(int *px, int *py, int angle)
 {
@@ -27,16 +25,4 @@ void	point_rotate(int *px, int *py, int angle)
 	angle_rad = (angle % 360) * M_PI / 180.0;
 	*px = (int)(x * cos(angle_rad) - y * sin(angle_rad));
 	*py = (int)(x * sin(angle_rad) + y * cos(angle_rad));
-}
-
-void	point_translate(int *px, int *py, int x, int y)
-{
-	*px += x;
-	*py += y;
-}
-
-void	point_scale(int *px, int *py, double scale)
-{
-	*px = (int)(*px * scale);
-	*py = (int)(*py * scale);
 }

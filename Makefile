@@ -6,7 +6,7 @@
 #    By: ecarvalh <ecarvalh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/26 11:33:41 by ecarvalh          #+#    #+#              #
-#    Updated: 2024/03/02 20:42:35 by ecarvalh         ###   ########.fr        #
+#    Updated: 2024/03/05 21:46:55 by ecarvalh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ NAME	= fdf
 all: $(NAME) test
 
 test: $(NAME)
-	./$(NAME)
+	./$(NAME) bt.fdf
 
 $(LIB):
 	@make -sC $@

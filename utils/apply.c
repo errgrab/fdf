@@ -6,67 +6,64 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 00:35:49 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/03/03 00:37:23 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/03/04 11:35:34 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	apply_rot_x(t_vec3 **points, int angle);
-void	apply_rot_y(t_vec3 **points, int angle);
-void	apply_rot_z(t_vec3 **points, int angle);
-void	apply_translate(t_vec3 **points, t_vec3 trl);
-void	apply_scale(t_vec3 **points, float scale);
+void	apply_rotate(int **points, int *angle);
+void	apply_translate(int **points, int *trl);
+void	apply_scale(int **points, float scale);
+void	apply_weak_projection(int **points, float distance);
 
-void	apply_rot_x(t_vec3 **points, int angle)
-{
-	int	i;
-
-	i = -1;
-	while (points[++i])
-		point_rotate(&points[i]->y, &points[i]->z, angle);
-}
-
-void	apply_rot_y(t_vec3 **points, int angle)
-{
-	int	i;
-
-	i = -1;
-	while (points[++i])
-		point_rotate(&points[i]->x, &points[i]->z, angle);
-}
-
-void	apply_rot_z(t_vec3 **points, int angle)
-{
-	int	i;
-
-	i = -1;
-	while (points[++i])
-		point_rotate(&points[i]->x, &points[i]->y, angle);
-}
-
-void	apply_translate(t_vec3 **points, t_vec3 trl)
+void	apply_rotate(int **points, int *angle)
 {
 	int	i;
 
 	i = -1;
 	while (points[++i])
 	{
-		points[i]->x += trl.x;
-		points[i]->y += trl.y;
-		points[i]->z += trl.z;
+		point_rotate(&points[i][Y], &points[i][Z], angle[X]);
+		point_rotate(&points[i][X], &points[i][Z], angle[Y]);
+		point_rotate(&points[i][X], &points[i][Y], angle[Z]);
 	}
 }
 
-void	apply_scale(t_vec3 **points, float scale)
+void	apply_translate(int **points, int *trl)
 {
 	int	i;
 
 	i = -1;
 	while (points[++i])
 	{
-		points[i]->x = (int)(points[i]->x * scale);
-		points[i]->y = (int)(points[i]->y * scale);
-		points[i]->z = (int)(points[i]->z * scale);
+		points[i][X] += trl[X];
+		points[i][Y] += trl[Y];
+		points[i][Z] += trl[Z];
+	}
+}
+
+void	apply_scale(int **points, float scale)
+{
+	int	i;
+
+	i = -1;
+	while (points[++i])
+	{
+		points[i][X] = (int)(points[i][X] * scale);
+		points[i][Y] = (int)(points[i][Y] * scale);
+		points[i][Z] = (int)(points[i][Z] * scale);
+	}
+}
+
+void	apply_weak_projection(int **points, float distance)
+{
+	int	i;
+
+	i = -1;
+	while (points[++i])
+	{
+		points[i][X] = (int)(points[i][X] * (distance / points[i][Z]));
+		points[i][Y] = (int)(points[i][Y] * (distance / points[i][Z]));
 	}
 }
