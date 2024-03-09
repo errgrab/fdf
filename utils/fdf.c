@@ -6,57 +6,45 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 17:29:39 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/03/04 12:36:39 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/03/08 22:21:39 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
 int		fdf_draw(t_fdf *fdf);
-void	fdf_init(t_fdf *fdf);
+void	fdf_init(t_fdf *fdf, int ac, char **av);
 
 int	fdf_draw(t_fdf *fdf)
 {
-	int	**points;
-	int	**edges;
-
-	points = (int *[]){
-		(int [3]){-50, -50, -50},
-		(int [3]){50, -50, -50},
-		(int [3]){50, 50, -50},
-		(int [3]){-50, 50, -50},
-		(int [3]){-50, -50, 50},
-		(int [3]){50, -50, 50},
-		(int [3]){50, 50, 50},
-		(int [3]){-50, 50, 50}, NULL};
-	edges = (int *[]){
-		(int [2]){0, 1}, (int [2]){1, 2}, (int [2]){2, 3}, (int [2]){3, 0},
-		(int [2]){4, 5}, (int [2]){5, 6}, (int [2]){6, 7}, (int [2]){7, 4},
-		(int [2]){0, 4}, (int [2]){1, 5}, (int [2]){2, 6}, (int [2]){3, 7},
-		NULL};
-	mlx_clear_window(fdf->mlx, fdf->win);
-	apply_rotate(points, (int [3]){45, 45, 45});
-	apply_translate(points, (int [3]){0, 0, 150});
-	apply_weak_projection(points, 100);
-	apply_translate(points, (int [3]){150, 150, 300});
-	draw_shape(fdf, points, edges);
+	if (!fdf->img_updated)
+		img_update(fdf);
+	else
+		if (!fdf->img_drawed)
+		{
+			mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img, 0, 0);
+			fdf->img_drawed = 1;
+		}
 	return (0);
 }
 
-void	fdf_init(t_fdf *fdf)
+void	fdf_init(t_fdf *fdf, int ac, char **av)
 {
 	fdf->mlx = mlx_init();
 	if (!fdf->mlx)
 		exit(1);
-	fdf->win_size = (int [2]){300, 300};
-	fdf->win = mlx_new_window(
-			fdf->mlx, fdf->win_size[X], fdf->win_size[Y], "fdf");
-	if (!fdf->win)
-	{
-		free(fdf->mlx);
-		exit(1);
-	}
+	fdf->size = (int [2]){500, 500};
+	fdf->win = mlx_new_window(fdf->mlx, fdf->size[X], fdf->size[Y], "");
+	fdf->img = mlx_new_image(fdf->mlx, fdf->size[X], fdf->size[Y]);
+	fdf->buf = mlx_get_data_addr(fdf->img, &fdf->img_pixel_bits,
+			&fdf->img_line_bytes, &fdf->img_endian);
+	fdf->model = model_init(ac, av);
+	fdf->img_updated = 0;
+	fdf->img_drawed = 0;
+	if (!fdf->model || !fdf->win || !fdf->img)
+		event_quit(fdf);
 	mlx_hook(fdf->win, KeyRelease, KeyReleaseMask, event_keyrelease, fdf);
+	mlx_hook(fdf->win, KeyPress, KeyPressMask, event_keypress, fdf);
 	mlx_hook(fdf->win, DestroyNotify, StructureNotifyMask, event_quit, fdf);
 	mlx_loop_hook(fdf->mlx, fdf_draw, fdf);
 	mlx_loop(fdf->mlx);

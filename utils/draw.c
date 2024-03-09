@@ -6,14 +6,61 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 17:27:46 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/03/04 11:22:56 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/03/08 22:25:19 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+void	draw_set_color(char *buff, int color, int endian);
+void	draw_pixel(t_fdf *fdf, int px, int py, int color);
+void	draw_clear(t_fdf *fdf);
 void	draw_line(t_fdf *fdf, int **line, int color);
 void	draw_shape(t_fdf *fdf, int **points, int **edges);
+
+/* Damn, I need to consider the endianess. */
+void	draw_set_color(char *buff, int color, int endian)
+{
+	if (endian == 1)
+	{
+		buff[0] = (char)0xff;
+		buff[1] = (color >> 16) & 0xff;
+		buff[2] = (color >> 8) & 0xff;
+		buff[3] = (color >> 0) & 0xff;
+		return ;
+	}
+	buff[0] = (color >> 0) & 0xff;
+	buff[1] = (color >> 8) & 0xff;
+	buff[2] = (color >> 16) & 0xff;
+	buff[3] = (char)0xff;
+}
+
+/* MLX is complex. I need to make this c_color (conversed color) before write
+ * the color to the buffer. */
+void	draw_pixel(t_fdf *fdf, int px, int py, int color)
+{
+	unsigned int	c_color;
+	int				pos;
+
+	if (px >= fdf->size[X] || px < 0
+		|| py >= fdf->size[Y] || py < 0)
+		return ;
+	c_color = mlx_get_color_value(fdf->mlx, color);
+	pos = (py * fdf->size[X] * 4) + (px * 4);
+	draw_set_color(&fdf->buf[pos], c_color, fdf->img_endian);
+}
+
+void	draw_clear(t_fdf *fdf)
+{
+	int	i;
+
+	i = 0;
+	while (i < fdf->size[X] * 4 * fdf->size[Y])
+	{
+		draw_set_color(&fdf->buf[i], 0, fdf->img_endian);
+		i += 4;
+	}
+}
 
 /* [Thnks Wikipedia!](https://en.wikipedia.org/wiki/Bresenham's_line_algorithm)
  *
@@ -25,8 +72,7 @@ void	draw_shape(t_fdf *fdf, int **points, int **edges);
  * int **line is the same as int line[2][2]
  * line[0] is the first point of the line
  * line[1] is the seccond
- * line[0][X] gets the x position of the first line
- */
+ * line[0][X] gets the x position of the first line */
 void	draw_line(t_fdf *fdf, int **line, int color)
 {
 	int	*dif;
@@ -42,7 +88,7 @@ void	draw_line(t_fdf *fdf, int **line, int color)
 	err = dif[X] + dif[Y];
 	while (line[0][X] != line[1][X] || line[0][Y] != line[1][Y])
 	{
-		mlx_pixel_put(fdf->mlx, fdf->win, line[0][X], line[0][Y], color);
+		draw_pixel(fdf, line[0][X], line[0][Y], color);
 		if (2 * err >= dif[Y] && line[0][X] != line[1][X])
 		{
 			err += dif[Y];
@@ -56,6 +102,8 @@ void	draw_line(t_fdf *fdf, int **line, int color)
 	}
 }
 
+/* Iterating over the edges and drawing lines...
+ * I would say: "Drawing lines, fealing fine", but faster */
 void	draw_shape(t_fdf *fdf, int **points, int **edges)
 {
 	int	i;
