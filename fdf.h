@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 17:21:06 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/03/08 21:03:46 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/03/09 13:05:57 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,9 +125,9 @@ int		**points_copy(int **points);
 
 /* map.c */
 char	*map_get_fd(int fd);
-int		map_validate(char *map, int *map_width, int *map_height);
+int		map_validate(t_model *model);
 int		**map_to_points(char *map);
-int		**map_to_edges(char *map);
+int		**map_to_edges(t_model *model);
 
 /* model.c */
 void	*model_init(int ac, char **av);

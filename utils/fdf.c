@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 17:29:39 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/03/08 22:21:39 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/03/09 23:49:21 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,13 @@ int	fdf_draw(t_fdf *fdf)
 	if (!fdf->img_updated)
 		img_update(fdf);
 	else
+	{
 		if (!fdf->img_drawed)
 		{
 			mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img, 0, 0);
 			fdf->img_drawed = 1;
 		}
+	}
 	return (0);
 }
 
@@ -33,7 +35,7 @@ void	fdf_init(t_fdf *fdf, int ac, char **av)
 	fdf->mlx = mlx_init();
 	if (!fdf->mlx)
 		exit(1);
-	fdf->size = (int [2]){500, 500};
+	fdf->size = (int [2]){900, 600};
 	fdf->win = mlx_new_window(fdf->mlx, fdf->size[X], fdf->size[Y], "");
 	fdf->img = mlx_new_image(fdf->mlx, fdf->size[X], fdf->size[Y]);
 	fdf->buf = mlx_get_data_addr(fdf->img, &fdf->img_pixel_bits,

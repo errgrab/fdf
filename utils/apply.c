@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 00:35:49 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/03/08 22:56:41 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/03/09 13:12:12 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ void	apply_scale(int **points, int *scale)
 	i = -1;
 	while (points[++i])
 	{
-		points[i][X] = (int)(points[i][X] * scale[X]);
-		points[i][Y] = (int)(points[i][Y] * scale[Y]);
-		points[i][Z] = (int)(points[i][Z] * scale[Z]);
+		points[i][X] = (int)(points[i][X] * scale[X] * .01);
+		points[i][Y] = (int)(points[i][Y] * scale[Y] * .01);
+		points[i][Z] = (int)(points[i][Z] * scale[Z] * .01);
 	}
 }
 /*
