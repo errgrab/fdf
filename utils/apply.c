@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 00:35:49 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/03/09 13:12:12 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/03/11 12:11:03 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,13 @@ void	apply_weak_projection(int **points, float distance)
 	i = -1;
 	while (points[++i])
 	{
-		points[i][X] = (int)(points[i][X] * distance * points[i][Z]);
-		points[i][Y] = (int)(points[i][Y] * distance * points[i][Z]);
+		if (points[i][Z] == 0)
+		{
+			points[i][X] = 0;
+			points[i][Y] = 0;
+			continue ;
+		}
+		points[i][X] = -(int)(distance * points[i][X] / points[i][Z]);
+		points[i][Y] = -(int)(distance * points[i][Y] / points[i][Z]);
 	}
 }

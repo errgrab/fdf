@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 17:21:06 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/03/09 13:05:57 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/03/11 12:19:53 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,9 @@ struct	s_fdf
 	int		img_endian;
 	int		img_updated;
 	int		img_drawed;
+	int		event_weight;
+	float	distance;
+	int		perspective;
 	t_model	*model;
 };
 
@@ -96,7 +99,7 @@ int		event_keyrelease(int key, t_fdf *fdf);
 /* draw.c */
 void	draw_set_color(char *buff, int color, int endian);
 void	draw_pixel(t_fdf *fdf, int px, int py, int color);
-void	draw_clear(t_fdf *fdf);
+void	draw_clear(t_fdf *fdf, int color);
 void	draw_line(t_fdf *fdf, int **line, int color);
 void	draw_shape(t_fdf *fdf, int **points, int **edges);
 
@@ -126,7 +129,7 @@ int		**points_copy(int **points);
 /* map.c */
 char	*map_get_fd(int fd);
 int		map_validate(t_model *model);
-int		**map_to_points(char *map);
+int		**map_to_points(t_model *model);
 int		**map_to_edges(t_model *model);
 
 /* model.c */

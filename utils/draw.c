@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 17:27:46 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/03/08 22:25:19 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/03/11 12:19:39 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	draw_set_color(char *buff, int color, int endian);
 void	draw_pixel(t_fdf *fdf, int px, int py, int color);
-void	draw_clear(t_fdf *fdf);
+void	draw_clear(t_fdf *fdf, int color);
 void	draw_line(t_fdf *fdf, int **line, int color);
 void	draw_shape(t_fdf *fdf, int **points, int **edges);
 
@@ -50,14 +50,14 @@ void	draw_pixel(t_fdf *fdf, int px, int py, int color)
 	draw_set_color(&fdf->buf[pos], c_color, fdf->img_endian);
 }
 
-void	draw_clear(t_fdf *fdf)
+void	draw_clear(t_fdf *fdf, int color)
 {
 	int	i;
 
 	i = 0;
 	while (i < fdf->size[X] * 4 * fdf->size[Y])
 	{
-		draw_set_color(&fdf->buf[i], 0, fdf->img_endian);
+		draw_set_color(&fdf->buf[i], color, fdf->img_endian);
 		i += 4;
 	}
 }
