@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 00:35:49 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/03/11 12:11:03 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/03/11 13:53:24 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,6 @@ void	apply_scale(int **points, int *scale)
 		points[i][Z] = (int)(points[i][Z] * scale[Z] * .01);
 	}
 }
-/*
-	ft_printf("points[%d] = {%d, %d, %d};\n", i,
-			points[i][X], points[i][Y], points[i][Z]);
-*/
 
 void	apply_weak_projection(int **points, float distance)
 {

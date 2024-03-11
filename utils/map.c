@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 19:14:53 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/03/10 19:56:15 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/03/11 13:53:02 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,31 +55,6 @@ int	map_validate(t_model *model)
 int	**map_to_points(t_model *model)
 {
 	int		**res;
-	char	**row;
-	char	**column;
-	int		i;
-	int		j;
-
-	res = NULL;
-	row = ft_split(model->map, "\n");
-	i = -1;
-	while (row[++i])
-	{
-		column = ft_split(row[i], " ");
-		j = -1;
-		while (column[++j])
-			res = points_append(res, (int *[]){
-					points_new(j * 10, i * 10, ft_atoi(column[j])), NULL});
-		ft_freesplit(column);
-	}
-	ft_freesplit(row);
-	return (res);
-}
-
-/*
-int	**map_to_points(t_model *model)
-{
-	int		**res;
 	char	*map;
 	char	*tok;
 	int		i;
@@ -87,21 +62,22 @@ int	**map_to_points(t_model *model)
 
 	res = NULL;
 	map = ft_strdup(model->map);
-	tok = ft_strtok(map, " ");
-	j = 0;
+	tok = ft_strtok(map, " \n");
+	i = 0;
+	j = -1;
 	while (tok)
 	{
-		i = j / model->map_width;
-		j = j % model->map_width;
+		i = i % model->map_width;
+		if (i == 0)
+			j++;
 		res = points_append(res, (int *[]){
-				points_new(j * 10, i * 10, ft_atoi(tok)), NULL});
-		tok = ft_strtok(NULL, " ");
-		j++;
+				points_new(i * 10, j * 10, ft_atoi(tok)), NULL});
+		tok = ft_strtok(NULL, " \n");
+		i++;
 	}
 	free(map);
 	return (res);
 }
-*/
 
 int	**map_to_edges(t_model *model)
 {

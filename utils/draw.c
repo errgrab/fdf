@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 17:27:46 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/03/11 12:19:39 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/03/11 15:03:52 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,10 @@ void	draw_shape(t_fdf *fdf, int **points, int **edges)
 	i = -1;
 	while (edges[++i])
 	{
+		if (fdf->perspective
+			&& (points[edges[i][0]][Z] >= fdf->model->position[Z]
+			|| points[edges[i][1]][Z] >= fdf->model->position[Z]))
+			continue ;
 		line = (int *[]){
 			(int [2]){points[edges[i][0]][X], points[edges[i][0]][Y]},
 			(int [2]){points[edges[i][1]][X], points[edges[i][1]][Y]}};
