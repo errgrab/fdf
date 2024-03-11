@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 18:57:04 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/03/11 12:47:31 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/03/11 18:42:51 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	*model_init(int ac, char **av)
 		return (ft_printf("Error on building map\n"), model_free(model));
 	model->points = map_to_points(model);
 	model->edges = map_to_edges(model);
-	model->position = points_new(150, 150, -150);
+	model->position = points_new(150, 150, -1200);
 	model->rotation = points_new(45, 45, 0);
 	model->scale = points_new(100, 100, 150);
 	if (!model->points || !model->edges || !model->position || !model->rotation
@@ -55,6 +55,7 @@ void	*model_free(t_model *model)
 	free(model->position);
 	free(model->rotation);
 	free(model->scale);
+	free(model->colors);
 	free(model);
 	return (NULL);
 }

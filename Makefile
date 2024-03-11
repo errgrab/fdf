@@ -6,7 +6,7 @@
 #    By: ecarvalh <ecarvalh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/26 11:33:41 by ecarvalh          #+#    #+#              #
-#    Updated: 2024/03/11 13:30:29 by ecarvalh         ###   ########.fr        #
+#    Updated: 2024/03/11 18:45:40 by ecarvalh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ NAME	= fdf
 all: $(NAME) test
 
 test: $(NAME)
-	./$(NAME) test_maps/basictest.fdf
+	./$(NAME) test_maps/t2.fdf
 
 $(LIB):
 	@make -sC $@

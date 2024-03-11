@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 19:14:53 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/03/11 13:53:02 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/03/11 18:30:04 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,17 +54,11 @@ int	map_validate(t_model *model)
 
 int	**map_to_points(t_model *model)
 {
-	int		**res;
-	char	*map;
-	char	*tok;
-	int		i;
-	int		j;
-
-	res = NULL;
-	map = ft_strdup(model->map);
-	tok = ft_strtok(map, " \n");
-	i = 0;
-	j = -1;
+	auto int **res = NULL;
+	auto char *map = ft_strdup(model->map);
+	auto char *tok = ft_strtok(map, " \n");
+	auto int i = 0;
+	auto int j = -1;
 	while (tok)
 	{
 		i = i % model->map_width;
@@ -72,6 +66,12 @@ int	**map_to_points(t_model *model)
 			j++;
 		res = points_append(res, (int *[]){
 				points_new(i * 10, j * 10, ft_atoi(tok)), NULL});
+		if (ft_strnstr(tok, ",0x", ft_strlen(tok)))
+			model->colors = color_add(model->colors,
+					ft_atoi_base(&ft_strnstr(tok, ",0x", ft_strlen(tok))[3],
+						"0123456789abcdef"));
+		else
+			model->colors = color_add(model->colors, 0xffffff);
 		tok = ft_strtok(NULL, " \n");
 		i++;
 	}

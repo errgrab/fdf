@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 17:21:06 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/03/11 12:19:53 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/03/11 18:43:06 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ enum
 /* (int [3]) is a point... so:
  * int points[null_terminated][3]; // is every point of the model
  * int edges[null_terminated][3]; // is every side (line) of the model
+ * int colors[null_terminated]; // is every color for every point
  * int position[3]; // is the position of the model on the world
  * int rotation[3]; // is the rotation of the model on the world
  * int scale[3]; // is the scale of the model on the world
@@ -56,6 +57,7 @@ struct	s_model
 {
 	int		**points;
 	int		**edges;
+	int		*colors;
 	int		*position;
 	int		*rotation;
 	int		*scale;
@@ -63,7 +65,6 @@ struct	s_model
 	int		fd;
 	int		map_width;
 	int		map_height;
-/*	int		*colors;*/
 };
 
 /* I will not explain everything in here, but it have all the "mlx" things you
@@ -138,5 +139,12 @@ void	*model_free(t_model *model);
 
 /* img.c */
 void	img_update(t_fdf *fdf);
+
+/* lib.c */
+int		ft_atoi_base(char *str, char *base);
+
+/* color.c */
+int		color_len(int *colors);
+int		*color_add(int *colors, int color);
 
 #endif /* FDF_H */

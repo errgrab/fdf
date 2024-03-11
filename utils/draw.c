@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 17:27:46 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/03/11 15:03:52 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/03/11 18:30:08 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,6 @@ void	draw_shape(t_fdf *fdf, int **points, int **edges)
 		line = (int *[]){
 			(int [2]){points[edges[i][0]][X], points[edges[i][0]][Y]},
 			(int [2]){points[edges[i][1]][X], points[edges[i][1]][Y]}};
-		draw_line(fdf, line, 0xffffff);
+		draw_line(fdf, line, fdf->model->colors[edges[i][0]]);
 	}
 }

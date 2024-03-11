@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 17:29:39 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/03/11 12:49:40 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/03/11 18:46:24 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ void	fdf_init(t_fdf *fdf, int ac, char **av)
 	fdf->img_updated = 0;
 	fdf->img_drawed = 0;
 	fdf->event_weight = 5;
-	fdf->distance = 500;
-	fdf->perspective = 0;
+	fdf->distance = 1000;
+	fdf->perspective = 1;
 	mlx_hook(fdf->win, KeyRelease, KeyReleaseMask, event_keyrelease, fdf);
 	mlx_hook(fdf->win, KeyPress, KeyPressMask, event_keypress, fdf);
 	mlx_hook(fdf->win, DestroyNotify, StructureNotifyMask, event_quit, fdf);
