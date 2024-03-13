@@ -6,7 +6,7 @@
 #    By: ecarvalh <ecarvalh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/26 11:33:41 by ecarvalh          #+#    #+#              #
-#    Updated: 2024/03/11 18:45:40 by ecarvalh         ###   ########.fr        #
+#    Updated: 2024/03/12 18:16:26 by ecarvalh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,8 @@ MLX		= mlx
 SRCS	= main.c $(wildcard utils/*.c)
 ODIR	= objs
 OBJS	= $(SRCS:%.c=$(ODIR)/%.o)
-CFLAGS	= -O3 -Wall -Wextra -Werror -pedantic -I. -I$(LIB) # -I$(MLX)
-LDFLAGS	= -L$(LIB) # -L$(MLX)
+CFLAGS	= -O3 -Wall -Wextra -Werror -pedantic -I. -I$(LIB) -I$(MLX)
+LDFLAGS	= -L$(LIB) -L$(MLX)
 LDLIBS	= -lft -l$(MLX) -lX11 -lXext -lm
 NAME	= fdf
 
@@ -31,7 +31,7 @@ $(LIB):
 $(MLX):
 	@make -sC $@
 
-$(NAME): $(OBJS) | $(LIB)
+$(NAME): $(OBJS) | $(LIB) $(MLX)
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^ $(LDLIBS)
 
 clean:
