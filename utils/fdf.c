@@ -32,6 +32,9 @@ int	fdf_draw(t_fdf *fdf)
 
 void	fdf_init(t_fdf *fdf, int ac, char **av)
 {
+	fdf->model = model_init(ac, av);
+	if (!fdf->model)
+		return ;
 	fdf->mlx = mlx_init();
 	if (!fdf->mlx)
 		exit(1);
@@ -40,8 +43,7 @@ void	fdf_init(t_fdf *fdf, int ac, char **av)
 	fdf->img = mlx_new_image(fdf->mlx, fdf->size[X], fdf->size[Y]);
 	fdf->buf = mlx_get_data_addr(fdf->img, &fdf->img_pixel_bits,
 			&fdf->img_line_bytes, &fdf->img_endian);
-	fdf->model = model_init(ac, av);
-	if (!fdf->model || !fdf->win || !fdf->img)
+	if (!fdf->win || !fdf->img)
 		event_quit(fdf);
 	fdf->img_updated = 0;
 	fdf->img_drawed = 0;
