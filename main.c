@@ -17,7 +17,7 @@ int	main(int ac, char **av)
 	t_fdf	fdf;
 
 	if (ac == 1)
-		return (ft_printf("Segmentation Fault (core dumped)\n"), 1);
+		return (ft_printf("segmentation fault (core dumped)\n"), 1);
 	fdf_init(&fdf, ac, av);
 	return (0);
 }
