@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 17:21:06 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/03/11 18:43:06 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/09/26 12:16:29 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ struct	s_fdf
 	int		img_line_bytes;
 	int		img_endian;
 	int		img_updated;
-	int		img_drawed;
 	int		event_weight;
 	float	distance;
 	int		perspective;

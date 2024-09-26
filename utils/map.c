@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 19:14:53 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/03/11 18:30:04 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/09/26 12:29:52 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*map_get_fd(int fd)
 	res = NULL;
 	while (line)
 	{
-		ft_strappend(&res, line);
+		res = ft_strapnd(res, line);
 		free(line);
 		line = ft_getline_fd(fd);
 	}

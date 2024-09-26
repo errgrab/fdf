@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 17:29:39 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/03/11 18:46:24 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/09/26 12:28:45 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,8 @@ int	fdf_draw(t_fdf *fdf)
 	if (!fdf->img_updated)
 	{
 		img_update(fdf);
-		return (0);
-	}
-	if (!fdf->img_drawed)
-	{
 		mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img, 0, 0);
-		fdf->img_drawed = 1;
+		return (0);
 	}
 	return (0);
 }
@@ -46,7 +42,6 @@ void	fdf_init(t_fdf *fdf, int ac, char **av)
 	if (!fdf->win || !fdf->img)
 		event_quit(fdf);
 	fdf->img_updated = 0;
-	fdf->img_drawed = 0;
 	fdf->event_weight = 5;
 	fdf->distance = 1000;
 	fdf->perspective = 1;

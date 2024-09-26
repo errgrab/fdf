@@ -6,7 +6,7 @@
 /*   By: ecarvalh <ecarvalh@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 20:32:17 by ecarvalh          #+#    #+#             */
-/*   Updated: 2024/03/11 12:44:15 by ecarvalh         ###   ########.fr       */
+/*   Updated: 2024/09/26 12:18:47 by ecarvalh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,4 @@ void	img_update(t_fdf *fdf)
 	draw_shape(fdf, points, fdf->model->edges);
 	points_free(points);
 	fdf->img_updated = 1;
-	fdf->img_drawed = 0;
 }
